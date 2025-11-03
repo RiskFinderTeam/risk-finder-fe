@@ -1,0 +1,282 @@
+.sign-up {
+  background-color: #ffffff;
+  width: 100%;
+  /* min-width: 1920px;
+  min-height: 1000px; */
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sign-up .frame {
+  display: flex;
+  margin-top: -108px;
+  height: 454px;
+  width: 800px;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 44px;
+}
+
+.sign-up .logo {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 4px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.sign-up .icon {
+  position: relative;
+  width: 30px;
+  height: 30px;
+}
+
+.sign-up .stroke {
+  top: 17.50%;
+  left: 17.50%;
+  position: absolute;
+  width: 23.33%;
+  height: 23.33%;
+}
+
+.sign-up .img {
+  top: 54.17%;
+  left: 17.50%;
+  position: absolute;
+  width: 23.33%;
+  height: 23.33%;
+}
+
+.sign-up .stroke-2 {
+  top: 54.17%;
+  left: 54.17%;
+  position: absolute;
+  width: 23.33%;
+  height: 23.33%;
+}
+
+.sign-up .text-wrapper {
+  position: relative;
+  width: fit-content;
+  margin-top: -1.00px;
+  font-family: "Poppins-Medium", Helvetica;
+  font-weight: 500;
+  color: var(--primary);
+  font-size: 20px;
+  letter-spacing: 0.20px;
+  line-height: normal;
+}
+
+.sign-up .cards {
+  display: flex;
+  height: 400px; /* 입력 필드 3개 높이 */
+  align-items: stretch;
+  gap: 40px;
+  padding: 42px 40px 42px 39px;
+  position: relative;
+  align-self: stretch;
+  width: 100%; /* .frame의 800px */
+  background-color: var(--white);
+  border-radius: 12px;
+  border: 1px solid;
+  border-color: var(--border);
+}
+
+.sign-up .card {
+  width: 350px; 
+  align-items: flex-start;
+  gap: 20px; 
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.sign-up .top {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 61px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.sign-up .text {
+  position: relative;
+  width: 96px; 
+  height: 60px;
+}
+
+.sign-up .div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-family: "Poppins-SemiBold", Helvetica;
+  font-weight: 600;
+  color: #535353;
+  font-size: 28px;
+  line-height: 42px;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+.sign-up .div-wrapper {
+  position: relative;
+  width: 352px; 
+  height: 36px;
+  border-bottom: 1px solid #e5e8eb;
+}
+
+.sign-up .div-wrapper label {
+  position: absolute;
+  top: calc(50.00% - 12px);
+  left: 12px;
+  font-family: "Poppins-Regular", Helvetica;
+  font-weight: 400;
+  color: var(--colors-labels-vibrant-controls-secondary);
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: 24px;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: all 0.2s ease;
+}
+
+.sign-up .text-wrapper-email { width: 152px; }
+.sign-up .text-wrapper-2 { width: 89px; }
+.sign-up .text-wrapper-3 { width: 152px; }
+
+
+.sign-up .input-field {
+  position: absolute;
+  top: 0;
+  left: 12px;
+  width: calc(100% - 24px); /* (352px - 24px) */
+  height: 100%;
+  border: none;
+  background: transparent;
+  font-family: "Poppins-Regular", Helvetica;
+  font-weight: 400;
+  color: var(--primary);
+  font-size: 16px;
+  padding: 0;
+  outline: none;
+}
+
+.sign-up .input-field::placeholder {
+  color: transparent; 
+}
+
+.sign-up .input-field:focus + label,
+.sign-up .input-field:not(:placeholder-shown) + label {
+  display: none; 
+}
+
+/* Submit 버튼 정렬 */
+.sign-up .frame-2 {
+  display: flex;
+  height: auto;
+  align-items: flex-end;
+  justify-content: flex-end; /* 우측 정렬 */
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  padding-top: 30px; /* 간격 */
+}
+
+/* Submit 버튼 (frame-3) */
+.sign-up .frame-3 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 35px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: linear-gradient(0deg, rgba(0, 136, 255, 1) 0%, rgba(0, 136, 255, 1) 100%),
+    linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 100%);
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+.sign-up .frame-3:hover { opacity: 0.9; }
+.sign-up .frame-3:active { opacity: 0.8; }
+
+.sign-up .text-wrapper-5 {
+  position: static;
+  width: auto;
+  font-family: "Poppins-Medium", Helvetica;
+  font-weight: 500;
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.sign-up .divider {
+  position: relative;
+  width: 1px;
+  height: 250px; 
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.sign-up .card-2 {
+  width: 282px; 
+  height: auto;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  justify-content: center;
+}
+
+.sign-up .frame-4 {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 26px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.sign-up .text-wrapper-6 {
+  position: relative;
+  width: 240px; 
+  height: 26px;
+  font-family: "Poppins-Medium", Helvetica;
+  font-weight: 500;
+  color: var(--colors-labels-vibrant-controls-secondary);
+  font-size: 20px;
+  line-height: 30px;
+  white-space: nowrap;
+}
+
+/* Sign In 버튼 (frame-5) */
+.sign-up .frame-5 {
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+  width: 94px;
+  height: 35px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid;
+  border-color: #e6edff;
+  background-color: var(--white);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.sign-up .frame-5:hover { background-color: rgba(0, 0, 0, 0.05); }
+
+.sign-up .text-wrapper-7 {
+  position: static; 
+  width: auto;
+  font-family: "Poppins-Medium", Helvetica;
+  font-weight: 500;
+  color: var(--colors-labels-vibrant-controls-secondary);
+  font-size: 16px;
+  line-height: 24px;
+}
