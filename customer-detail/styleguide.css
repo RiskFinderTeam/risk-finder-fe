@@ -1,8 +1,6 @@
 :root {
-  --border: rgba(230, 237, 255, 1);
-  --colors-labels-vibrant-controls-secondary: rgba(140, 140, 140, 1);
+  --colors-labels-vibrant-controls-primary: rgba(64, 64, 64, 1);
   --main-color: rgba(0, 136, 255, 1);
-  --white: rgba(255, 255, 255, 1);
 }
 
 /*
@@ -18,17 +16,17 @@ You can apply the theme on any DOM node, not just the `body`
 */
 
 [data-colors-mode="light"] {
-  --colors-labels-vibrant-controls-secondary: rgba(140, 140, 140, 1);
+  --colors-labels-vibrant-controls-primary: rgba(64, 64, 64, 1);
 }
 
 [data-colors-mode="dark"] {
-  --colors-labels-vibrant-controls-secondary: rgba(115, 115, 115, 1);
+  --colors-labels-vibrant-controls-primary: rgba(191, 191, 191, 1);
 }
 
 [data-colors-mode="IC-light"] {
-  --colors-labels-vibrant-controls-secondary: rgba(140, 140, 140, 1);
+  --colors-labels-vibrant-controls-primary: rgba(64, 64, 64, 1);
 }
 
 [data-colors-mode="IC-dark"] {
-  --colors-labels-vibrant-controls-secondary: rgba(115, 115, 115, 1);
+  --colors-labels-vibrant-controls-primary: rgba(191, 191, 191, 1);
 }

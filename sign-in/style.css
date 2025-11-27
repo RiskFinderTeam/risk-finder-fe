@@ -1,196 +1,152 @@
 .sign-in {
-  background-color: #ffffff;
-  width: 100%;
-  /* min-width: 1920px;
-  min-height: 1000px; */
-  min-height: 100vh;
-  display: flex;
   align-items: center;
+  background-color: #ffffff;
+  display: flex;
   justify-content: center;
+  min-height: 1000px;
+  min-width: 1920px;
+  width: 100%;
 }
 
 .sign-in .frame {
-  display: flex;
-  margin-top: -108px;
-  height: 424px;
-  width: 800px;
-  position: relative;
-  flex-direction: column;
   align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  height: 424px;
   justify-content: center;
-  gap: 44px;
+  margin-top: -108px;
+  position: relative;
+  width: 800px;
 }
 
 .sign-in .logo {
+  align-items: center;
   display: inline-flex;
-  align-items: flex-start;
-  gap: 4px;
-  position: relative;
   flex: 0 0 auto;
-}
-
-.sign-in .icon {
+  gap: 10px;
+  justify-content: center;
   position: relative;
-  width: 30px;
-  height: 30px;
 }
 
-.sign-in .stroke {
-  top: 17.50%;
-  left: 17.50%;
-  position: absolute;
-  width: 23.33%;
-  height: 23.33%;
-}
-
-.sign-in .img {
-  top: 54.17%;
-  left: 17.50%;
-  position: absolute;
-  width: 23.33%;
-  height: 23.33%;
-}
-
-.sign-in .stroke-2 {
-  top: 54.17%;
-  left: 54.17%;
-  position: absolute;
-  width: 23.33%;
-  height: 23.33%;
+.sign-in .vector {
+  aspect-ratio: 1;
+  height: 19.5px;
+  margin-left: -0.75px;
+  position: relative;
+  width: 19.5px;
 }
 
 .sign-in .text-wrapper {
-  position: relative;
-  width: fit-content;
-  margin-top: -1.00px;
-  font-family: "Poppins-Medium", Helvetica;
-  font-weight: 500;
-  color: var(--primary);
+  color: #000000;
+  font-family: "Inter-Medium", Helvetica;
   font-size: 20px;
+  font-weight: 500;
   letter-spacing: 0.20px;
   line-height: normal;
+  margin-top: -1.00px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
 }
 
 .sign-in .cards {
-  display: flex;
-  height: 350px;
   align-items: center;
-  gap: 40px;
-  padding: 42px 40px 42px 39px;
-  position: relative;
   align-self: stretch;
-  width: 100%;
   background-color: var(--white);
-  border-radius: 12px;
   border: 1px solid;
   border-color: var(--border);
+  border-radius: 12px;
+  display: flex;
+  gap: 40px;
+  height: 350px;
+  padding: 42px 40px 42px 39px;
+  position: relative;
+  width: 100%;
 }
 
 .sign-in .card {
-  width: 350px;
   align-items: flex-start;
-  gap: 14px;
   display: flex;
   flex-direction: column;
+  gap: 14px;
   position: relative;
+  width: 350px;
 }
 
 .sign-in .top {
-  display: inline-flex;
   align-items: flex-start;
+  display: inline-flex;
+  flex: 0 0 auto;
   gap: 61px;
   position: relative;
-  flex: 0 0 auto;
 }
 
 .sign-in .text {
+  height: 60px;
   position: relative;
   width: 96px;
-  height: 60px;
 }
 
 .sign-in .div {
+  color: #535353;
+  font-family: "Pretendard Variable-SemiBold", Helvetica;
+  font-size: 28px;
+  font-weight: 600;
+  left: 0;
+  letter-spacing: 0;
+  line-height: 42px;
   position: absolute;
   top: 0;
-  left: 0;
-  font-family: "Poppins-SemiBold", Helvetica;
-  font-weight: 600;
-  color: #535353;
-  font-size: 28px;
-  line-height: 42px;
-  letter-spacing: 0;
   white-space: nowrap;
-  position: absolute;
 }
 
 .sign-in .div-wrapper {
-  position: relative;
-  width: 352px;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-color: #e5e8eb;
   height: 36px;
   margin-left: -1.00px;
   margin-right: -1.00px;
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  border-color: #e5e8eb;
+  position: relative;
+  width: 352px;
 }
 
 .sign-in .text-wrapper-2 {
-  position: absolute;
-  top: calc(50.00% - 12px);
-  left: 12px;
-  width: 89px;
-  font-family: "Poppins-Regular", Helvetica;
-  font-weight: 400;
-  color: var(--colors-labels-vibrant-controls-secondary);
+  color: #ababab;
+  font-family: "Pretendard Variable-Regular", Helvetica;
   font-size: 16px;
+  font-weight: 400;
+  left: 12px;
   letter-spacing: 0;
   line-height: 24px;
+  position: absolute;
+  top: calc(50.00% - 12px);
   white-space: nowrap;
 }
 
 .sign-in .text-wrapper-3 {
-  position: absolute;
-  top: calc(50.00% - 12px);
-  left: 12px;
-  width: 152px;
-  font-family: "Poppins-Regular", Helvetica;
-  font-weight: 400;
-  color: var(--colors-labels-vibrant-controls-secondary);
+  color: #ababab;
+  font-family: "Pretendard Variable-Regular", Helvetica;
   font-size: 16px;
+  font-weight: 400;
+  left: 12px;
   letter-spacing: 0;
   line-height: 24px;
+  position: absolute;
+  top: calc(50.00% - 12px);
   white-space: nowrap;
+  width: 152px;
 }
 
-.sign-in .frame-2 {
-  display: flex;
-  height: 81px;
-  align-items: flex-end;
-  justify-content: space-between;
-  position: relative;
+.sign-in .frame-wrapper {
   align-self: stretch;
+  height: 81px;
+  position: relative;
   width: 100%;
 }
 
-.sign-in .text-wrapper-4 {
-  position: relative;
-  width: 152px;
-  height: 23px;
-  font-family: "Poppins-Regular", Helvetica;
-  font-weight: 400;
-  color: var(--colors-labels-vibrant-controls-secondary);
-  font-size: 16px;
-  letter-spacing: 0;
-  line-height: 24px;
-  white-space: nowrap;
-}
-
-.sign-in .frame-3 {
-  position: relative;
-  width: 80px;
-  height: 35px;
-  border-radius: 16px;
-  overflow: hidden;
+.sign-in .frame-2 {
   background: linear-gradient(
       0deg,
       rgba(0, 136, 255, 1) 0%,
@@ -201,228 +157,87 @@
       rgba(255, 255, 255, 1) 0%,
       rgba(255, 255, 255, 1) 100%
     );
+  border-radius: 16px;
+  height: 35px;
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  top: 46px;
+  width: 80px;
 }
 
-.sign-in .text-wrapper-5 {
-  position: absolute;
-  top: calc(50.00% - 12px);
-  left: calc(50.00% - 23px);
-  width: 47px;
-  font-family: "Poppins-Medium", Helvetica;
-  font-weight: 500;
+.sign-in .text-wrapper-4 {
   color: #ffffff;
+  font-family: "Pretendard Variable-SemiBold", Helvetica;
   font-size: 16px;
+  font-weight: 600;
+  left: calc(50.00% - 21px);
   letter-spacing: 0;
   line-height: 24px;
+  position: absolute;
+  top: calc(50.00% - 12px);
   white-space: nowrap;
 }
 
 .sign-in .divider {
-  position: relative;
-  width: 1px;
   height: 200px;
   object-fit: cover;
+  position: relative;
+  width: 1px;
 }
 
 .sign-in .card-2 {
-  width: 282px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
   height: 82px;
-  align-items: center;
-  display: flex;
-  flex-direction: column;
   position: relative;
-}
-
-.sign-in .frame-4 {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 26px;
-  position: relative;
-  flex: 0 0 auto;
-  margin-bottom: 0px;
-}
-
-.sign-in .text-wrapper-6 {
-  position: relative;
-  width: 240px;
-  height: 26px;
-  margin-top: -1.00px;
-  font-family: "Poppins-Medium", Helvetica;
-  font-weight: 500;
-  color: var(--colors-labels-vibrant-controls-secondary);
-  font-size: 20px;
-  letter-spacing: 0;
-  line-height: 30px;
-  white-space: nowrap;
-}
-
-.sign-in .frame-5 {
-  display: flex;
-  flex-direction: column;
-  width: 94px;
-  height: 35px;
-  border-radius: 16px;
-  overflow: hidden;
-  border: 1px solid;
-  border-color: #e6edff;
-  background-color: var(--colors-labels-vibrant-controls-secondary);
-}
-
-.sign-in .text-wrapper-7 {
-  top: calc(50.00% - 12px);
-  left: calc(50.00% - 32px);
-  width: 62px;
-  font-family: "Poppins-Medium", Helvetica;
-  font-weight: 500;
-  color: var(--colors-labels-vibrant-controls-secondary);
-  font-size: 16px;
-  line-height: 24px;
-  position: absolute;
-  letter-spacing: 0;
-}
-
-.sign-in .div-wrapper {
-  position: relative;
-  width: 352px;
-  height: 36px;
-  margin-left: -1.00px;
-  margin-right: -1.00px;
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  border-color: #e5e8eb;
-  display: flex;
-  flex-direction: column;
-}
-
-.sign-in .input-field {
-  position: absolute;
-  top: 0;
-  left: 12px;
-  right: 12px;
-  width: calc(100% - 24px);
-  height: 100%;
-  border: none;
-  background: transparent;
-  font-family: "Poppins-Regular", Helvetica;
-  font-weight: 400;
-  color: var(--primary);
-  font-size: 16px;
-  letter-spacing: 0;
-  line-height: 24px;
-  padding: 0;
-  outline: none;
-}
-
-.sign-in .input-field::placeholder {
-  color: var(--colors-labels-vibrant-controls-secondary);
-  opacity: 1;
-}
-
-.sign-in .div-wrapper label {
-  position: absolute;
-  top: calc(50.00% - 12px);
-  left: 12px;
-  font-family: "Poppins-Regular", Helvetica;
-  font-weight: 400;
-  color: var(--colors-labels-vibrant-controls-secondary);
-  font-size: 16px;
-  letter-spacing: 0;
-  line-height: 24px;
-  white-space: nowrap;
-  pointer-events: none;
-  transition: all 0.2s ease;
-}
-
-.sign-in .input-field:focus + label,
-.sign-in .input-field:not(:placeholder-shown) + label {
-  display: none;
-}
-
-.sign-in .text-wrapper-4 {
-  position: relative;
-  width: 152px;
-  height: 23px;
-  font-family: "Poppins-Regular", Helvetica;
-  font-weight: 400;
-  color: var(--colors-labels-vibrant-controls-secondary);
-  font-size: 16px;
-  letter-spacing: 0;
-  line-height: 24px;
-  white-space: nowrap;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.sign-in .text-wrapper-4:hover {
-  text-decoration: underline;
+  width: 282px;
 }
 
 .sign-in .frame-3 {
+  align-items: center;
+  display: inline-flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 26px;
+  margin-bottom: -9.00px;
   position: relative;
-  width: 80px;
-  height: 35px;
-  border-radius: 16px;
-  overflow: hidden;
-  background: linear-gradient(
-      0deg,
-      rgba(0, 136, 255, 1) 0%,
-      rgba(0, 136, 255, 1) 100%
-    ),
-    linear-gradient(
-      0deg,
-      rgba(255, 255, 255, 1) 0%,
-      rgba(255, 255, 255, 1) 100%
-    );
-  border: none;
-  cursor: pointer;
-  transition: opacity 0.2s ease;
 }
 
-.sign-in .frame-3:hover {
-  opacity: 0.9;
+.sign-in .text-wrapper-5 {
+  color: var(--colors-labels-vibrant-controls-secondary);
+  font-family: "Pretendard Variable-Medium", Helvetica;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 30px;
+  margin-top: -1.00px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
 }
 
-.sign-in .frame-3:active {
-  opacity: 0.8;
-}
-
-/* sign up 버튼 수정중 */
-
-.sign-in .frame-5 {
-  display: flex; 
-  align-items: center; 
-  justify-content: center; 
-  
-  width: 94px; 
-  height: 35px; 
-  border-radius: 16px;
-  overflow: hidden;
+.sign-in .frame-4 {
+  background-color: var(--colors-labels-vibrant-controls-secondary);
   border: 1px solid;
   border-color: #e6edff;
-  /* background-color: var(--colors-labels-vibrant-controls-secondary); -> 색상 제거 */
-  background-color: var(--white); 
-  text-decoration: none;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+  border-radius: 16px;
+  height: 35px;
+  overflow: hidden;
+  position: relative;
+  width: 96px;
 }
 
-.sign-in .text-wrapper-7 {
-  position: static; 
-  width: auto;
-  font-family: "Poppins-Medium", Helvetica;
-  font-weight: 500;
+.sign-in .text-wrapper-6 {
   color: var(--colors-labels-vibrant-controls-secondary);
+  font-family: "Pretendard Variable-SemiBold", Helvetica;
   font-size: 16px;
-  line-height: 24px;
+  font-weight: 600;
+  left: calc(50.00% - 28px);
   letter-spacing: 0;
+  line-height: 24px;
+  position: absolute;
+  top: calc(50.00% - 12px);
   white-space: nowrap;
-}
-
-.sign-in .frame-5:hover {
-  background-color: rgba(0, 0, 0, 0.05); 
-}
-
-.sign-in .frame-5:active {
-  background-color: rgba(0, 0, 0, 0.1);
 }
