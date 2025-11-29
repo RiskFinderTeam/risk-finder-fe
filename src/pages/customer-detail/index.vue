@@ -1,3 +1,62 @@
+<template>
+  <div class="customer-detail">
+    <div class="frame">
+      <div class="text-wrapper">abcd1234</div>
+
+      <div class="div">
+        <div class="frame-2">
+          <div class="text-wrapper-2">이름</div>
+
+          <div class="text-wrapper-3">Microsoft</div>
+        </div>
+
+        <div class="frame-2">
+          <div class="text-wrapper-2">전화번호</div>
+
+          <div class="text-wrapper-4">010-1234-5678</div>
+        </div>
+
+        <div class="frame-2">
+          <div class="text-wrapper-2">이메일</div>
+
+          <div class="text-wrapper-4">abcd@gmail.com</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="frame-3">
+      <div class="div-wrapper">
+        <div class="text-wrapper-5">안내 메일 발송</div>
+      </div>
+
+      <img class="divider" alt="Divider" src="./divider.svg" />
+
+      <div class="frame-4">
+        <div class="text-wrapper-6">안전등급</div>
+
+        <div class="text-wrapper-7">A</div>
+      </div>
+
+      <div class="frame-5">
+        <div class="text-wrapper-8">부도확률</div>
+
+        <div class="text-wrapper-9">8.00%</div>
+      </div>
+    </div>
+
+    <div class="frame-6">
+      <div class="text-wrapper-10">주요요인</div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "CustomerDetail",
+};
+</script>
+
+<style>
 .customer-detail {
   background-color: #ffffff;
   border: 1px solid;
@@ -20,7 +79,7 @@
   width: 165px;
 }
 
-.customer-detail .dashboard-copy {
+.customer-detail .text-wrapper {
   color: var(--colors-labels-vibrant-controls-primary);
   font-family: "Inter-SemiBold", Helvetica;
   font-size: 24px;
@@ -51,7 +110,7 @@
   position: relative;
 }
 
-.customer-detail .text-wrapper {
+.customer-detail .text-wrapper-2 {
   color: #b5b7c0;
   font-family: "Poppins-Medium", Helvetica;
   font-size: 14px;
@@ -63,7 +122,7 @@
   width: fit-content;
 }
 
-.customer-detail .text-wrapper-2 {
+.customer-detail .text-wrapper-3 {
   color: #535353;
   font-family: "Inter-Medium", Helvetica;
   font-size: 14px;
@@ -76,7 +135,7 @@
   width: fit-content;
 }
 
-.customer-detail .text-wrapper-3 {
+.customer-detail .text-wrapper-4 {
   color: #535353;
   font-family: "Inter-Medium", Helvetica;
   font-size: 14px;
@@ -123,7 +182,7 @@
   width: 140px;
 }
 
-.customer-detail .text-wrapper-4 {
+.customer-detail .text-wrapper-5 {
   color: #ffffff;
   font-family: "Pretendard Variable-SemiBold", Helvetica;
   font-size: 14px;
@@ -155,7 +214,7 @@
   width: 52px;
 }
 
-.customer-detail .text-wrapper-5 {
+.customer-detail .text-wrapper-6 {
   color: #000000;
   font-family: "Inter-Medium", Helvetica;
   font-size: 12px;
@@ -167,7 +226,7 @@
   width: fit-content;
 }
 
-.customer-detail .text-wrapper-6 {
+.customer-detail .text-wrapper-7 {
   color: var(--colors-labels-vibrant-controls-primary);
   font-family: "Inter-SemiBold", Helvetica;
   font-size: 16px;
@@ -192,7 +251,7 @@
   width: 50px;
 }
 
-.customer-detail .text-wrapper-7 {
+.customer-detail .text-wrapper-8 {
   align-self: stretch;
   color: #000000;
   font-family: "Inter-Medium", Helvetica;
@@ -204,7 +263,7 @@
   position: relative;
 }
 
-.customer-detail .text-wrapper-8 {
+.customer-detail .text-wrapper-9 {
   align-self: stretch;
   color: var(--colors-labels-vibrant-controls-primary);
   font-family: "Inter-SemiBold", Helvetica;
@@ -216,7 +275,7 @@
   position: relative;
 }
 
-.customer-detail .dashboard-copy-wrapper {
+.customer-detail .frame-6 {
   align-items: center;
   border: 1px solid;
   border-color: #e6edff;
@@ -230,7 +289,7 @@
   width: 400px;
 }
 
-.customer-detail .dashboard-copy-2 {
+.customer-detail .text-wrapper-10 {
   color: var(--colors-labels-vibrant-controls-primary);
   flex: 1;
   font-family: "Inter-Medium", Helvetica;
@@ -245,3 +304,4 @@
   opacity: 0.9;
   width: 65.56px;
 }
+</style>
