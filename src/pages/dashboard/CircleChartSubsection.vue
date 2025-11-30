@@ -1,191 +1,215 @@
 <template>
   <div class="circle-chart-subsection">
     <div class="view">
-      <div class="frame-3">
-        <div class="frame-4">
-          <div class="a">
-            <div class="ellipse-2" />
-            <div class="text-wrapper-3">A등급</div>
-            <div class="text-wrapper-4">15%</div>
-          </div>
-          <div class="b">
-            <div class="ellipse-3" />
-            <div class="text-wrapper-5">B등급</div>
-            <div class="text-wrapper-6">17%</div>
-          </div>
-          <div class="c">
-            <div class="ellipse-4" />
-            <div class="text-wrapper-7">C등급</div>
-            <div class="text-wrapper-8">32%</div>
-          </div>
-        </div>
-        <div class="frame-5">
-          <div class="d">
-            <div class="ellipse-5" />
-            <div class="text-wrapper-3">D등급</div>
-            <div class="text-wrapper-6">26%</div>
-          </div>
-          <div class="e">
-            <div class="ellipse-6" />
-            <div class="text-wrapper-3">E등급</div>
-            <div class="text-wrapper-6">10%</div>
-          </div>
-        </div>
-      </div>
-      <div class="chart-2">
-        <img class="img" alt="Ellipse" :src="ellipse133" />
-        <img class="ellipse-7" alt="Ellipse" :src="ellipse134" />
-        <img class="ellipse-8" alt="Ellipse" :src="ellipse132" />
-        <img class="ellipse-9" alt="Ellipse" :src="image" />
-        <img class="ellipse-10" alt="Ellipse" :src="ellipse13" />
-      </div>
-      <div class="frame-6">
+      <div class="chart-header">
         <div class="text-wrapper-9">안전등급 비율</div>
         <div class="text-wrapper-10">2025년 11월 기준</div>
+      </div>
+
+      <div class="chart-body">
+        <div class="chart-container">
+          <Doughnut :data="chartData" :options="chartOptions" />
+        </div>
+
+        <div class="legend-container">
+          <div class="legend-column">
+            <div class="legend-item">
+              <span class="dot color-a"></span>
+              <span class="grade-text">A등급</span>
+              <span class="percent-text">{{ formatPercent(ratios.A) }}</span>
+            </div>
+            <div class="legend-item">
+              <span class="dot color-b"></span>
+              <span class="grade-text">B등급</span>
+              <span class="percent-text">{{ formatPercent(ratios.B) }}</span>
+            </div>
+            <div class="legend-item">
+              <span class="dot color-c"></span>
+              <span class="grade-text">C등급</span>
+              <span class="percent-text">{{ formatPercent(ratios.C) }}</span>
+            </div>
+          </div>
+          <div class="legend-column">
+            <div class="legend-item">
+              <span class="dot color-d"></span>
+              <span class="grade-text">D등급</span>
+              <span class="percent-text">{{ formatPercent(ratios.D) }}</span>
+            </div>
+            <div class="legend-item">
+              <span class="dot color-e"></span>
+              <span class="grade-text">E등급</span>
+              <span class="percent-text">{{ formatPercent(ratios.E) }}</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import ellipse132 from "./ellipse-13-2.svg";
-import ellipse133 from "./ellipse-13-3.svg";
-import ellipse134 from "./ellipse-13-4.svg";
-import ellipse13 from "./ellipse-13.svg";
-import image from "./image.svg";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Doughnut } from 'vue-chartjs';
+
+// Chart.js 등록
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default {
-  name: "CircleChartSubsection",
-  data() {
-    return {
-      ellipse132,
-      ellipse133,
-      ellipse134,
-      ellipse13,
-      image,
-    };
+  name: 'CircleChartSubsection',
+  components: {
+    Doughnut,
+  },
+  props: {
+    // 부모(Dashboard)에서 받을 데이터
+    ratios: {
+      type: Object,
+      default: () => ({ A: 0, B: 0, C: 0, D: 0, E: 0 }),
+    },
+  },
+  computed: {
+    chartData() {
+      return {
+        labels: ['A등급', 'B등급', 'C등급', 'D등급', 'E등급'],
+        datasets: [
+          {
+            backgroundColor: [
+              '#0088ff',
+              '#5CACEE',
+              '#87CEFA',
+              '#B0E0E6',
+              '#E0FFFF',
+            ], // 색상 (진한 파랑 -> 연한 파랑)
+            data: [
+              this.ratios.A,
+              this.ratios.B,
+              this.ratios.C,
+              this.ratios.D,
+              this.ratios.E,
+            ],
+            borderWidth: 0, // 테두리 없음
+            hoverOffset: 4,
+          },
+        ],
+      };
+    },
+    chartOptions() {
+      return {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '60%', // 도넛 구멍 크기
+        plugins: {
+          legend: {
+            display: false, // 기본 범례 숨김 (우리가 커스텀으로 만들었으니까)
+          },
+          tooltip: {
+            callbacks: {
+              label: function (context) {
+                return context.label + ': ' + context.raw + '%';
+              },
+            },
+          },
+        },
+      };
+    },
+  },
+  methods: {
+    formatPercent(val) {
+      return val + '%';
+    },
   },
 };
 </script>
 
-<style>
+<style scoped>
 .circle-chart-subsection {
-  /* Add your styles here */
+  width: 100%;
+  height: 100%;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e6edff;
+  padding: 24px;
+  box-sizing: border-box;
 }
 
-.view {
-  /* Add your styles here */
-}
-
-.frame-3 {
-  /* Add your styles here */
-}
-
-.frame-4 {
-  /* Add your styles here */
-}
-
-.a {
-  /* Add your styles here */
-}
-
-.ellipse-2 {
-  /* Add your styles here */
-}
-
-.text-wrapper-3 {
-  /* Add your styles here */
-}
-
-.text-wrapper-4 {
-  /* Add your styles here */
-}
-
-.b {
-  /* Add your styles here */
-}
-
-.ellipse-3 {
-  /* Add your styles here */
-}
-
-.text-wrapper-5 {
-  /* Add your styles here */
-}
-
-.text-wrapper-6 {
-  /* Add your styles here */
-}
-
-.c {
-  /* Add your styles here */
-}
-
-.ellipse-4 {
-  /* Add your styles here */
-}
-
-.text-wrapper-7 {
-  /* Add your styles here */
-}
-
-.text-wrapper-8 {
-  /* Add your styles here */
-}
-
-.frame-5 {
-  /* Add your styles here */
-}
-
-.d {
-  /* Add your styles here */
-}
-
-.ellipse-5 {
-  /* Add your styles here */
-}
-
-.e {
-  /* Add your styles here */
-}
-
-.ellipse-6 {
-  /* Add your styles here */
-}
-
-.chart-2 {
-  /* Add your styles here */
-}
-
-.img {
-  /* Add your styles here */
-}
-
-.ellipse-7 {
-  /* Add your styles here */
-}
-
-.ellipse-8 {
-  /* Add your styles here */
-}
-
-.ellipse-9 {
-  /* Add your styles here */
-}
-
-.ellipse-10 {
-  /* Add your styles here */
-}
-
-.frame-6 {
-  /* Add your styles here */
+.chart-header {
+  margin-bottom: 20px;
 }
 
 .text-wrapper-9 {
-  /* Add your styles here */
+  font-size: 18px;
+  font-weight: 700;
+  color: #333;
 }
 
 .text-wrapper-10 {
-  /* Add your styles here */
+  font-size: 12px;
+  color: #999;
+  margin-top: 4px;
+}
+
+.chart-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.chart-container {
+  width: 200px;
+  height: 200px;
+  position: relative;
+}
+
+.legend-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+
+.legend-column {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #555;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+/* 색상 매칭 */
+.color-a {
+  background-color: #0088ff;
+}
+.color-b {
+  background-color: #5cacee;
+}
+.color-c {
+  background-color: #87cefa;
+}
+.color-d {
+  background-color: #b0e0e6;
+}
+.color-e {
+  background-color: #e0ffff;
+}
+
+.grade-text {
+  font-weight: 500;
+}
+
+.percent-text {
+  font-weight: 700;
+  color: #333;
 }
 </style>

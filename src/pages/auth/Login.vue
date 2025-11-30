@@ -88,7 +88,7 @@ async function login() {
     authStore.login(response.data.data.accessToken);
     console.log('토큰 저장 완료:', response.data.data.accessToken);
 
-    router.push('/customers');
+    router.push('/dashboard');
   } catch (error) {
     console.error('로그인 실패:', error);
     alert('로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.');
