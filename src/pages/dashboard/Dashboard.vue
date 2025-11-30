@@ -138,32 +138,29 @@ export default {
 </script>
 
 <style scoped>
-/* 전체 레이아웃 (화면 크기에 딱 맞춤) */
+/* 전체 레이아웃 */
 .dashboard-layout {
-  display: flex;
+  display: flex; /* Flexbox로 사이드바와 컨텐츠 나란히 배치 */
   width: 100%;
-  height: 100vh; /* 높이를 화면 전체로 고정 */
+  min-height: 100vh; /* ▼ 고정 높이(height) 대신 최소 높이 사용 */
   background-color: #fafbfc;
-  overflow: hidden; /* 화면 전체 스크롤 없앰 */
 }
 
 /* 사이드바 영역 */
 .sidebar {
-  flex-shrink: 0;
-  height: 100%; /* 부모 높이(100vh)를 따라감 */
+  flex-shrink: 0; /* 너비 줄어들지 않음 */
   z-index: 10;
 }
 
-/* 메인 컨텐츠 영역 (여기만 스크롤 됨) */
+/* 메인 컨텐츠 영역 */
 .main-content {
-  flex: 1;
-  height: 100%; /* 높이 꽉 채움 */
+  flex: 1; /* 남은 공간 다 차지 */
   padding: 40px;
-  overflow-y: auto; /* ★ 핵심: 내용이 길면 여기서 스크롤 생김 */
+  /* ▼ 내부 스크롤(overflow) 속성 삭제 -> 윈도우 스크롤 사용 */
   min-width: 0;
 }
 
-/* ... (아래는 기존 스타일 그대로 유지) ... */
+/* ... (아래 헤더, 그리드, 카드 스타일은 기존과 동일하게 유지) ... */
 .page-header {
   margin-bottom: 30px;
 }
