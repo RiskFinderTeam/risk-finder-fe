@@ -2,7 +2,8 @@
   <div class="sign-in">
     <div class="frame">
       <div class="logo">
-        <img class="vector" alt="Vector" :src="vector" />
+        <!-- 이미지가 없을 경우를 대비해 텍스트만 남기거나 경로 확인 필요 -->
+        <!-- <img class="vector" alt="Vector" :src="vector" /> -->
         <div class="text-wrapper">Risk Finder</div>
       </div>
       <div class="cards">
@@ -14,7 +15,12 @@
           </div>
           <div class="div-wrapper">
             <div class="field">
-              <input type="text" placeholder="아이디" v-model="userId" />
+              <input
+                type="text"
+                placeholder="아이디"
+                v-model="userId"
+                @keyup.enter="login"
+              />
             </div>
           </div>
 
@@ -24,6 +30,7 @@
                 type="password"
                 placeholder="비밀번호"
                 v-model="userPassword"
+                @keyup.enter="login"
               />
             </div>
           </div>
@@ -33,7 +40,11 @@
             </div>
           </div>
         </div>
-        <img class="divider" alt="Divider" :src="divider" />
+
+        <!-- 구분선 이미지 -->
+        <!-- <img class="divider" alt="Divider" :src="divider" /> -->
+        <div class="divider-line"></div>
+
         <div class="card-2">
           <div class="frame-3">
             <div class="text-wrapper-5">아직 회원이 아니신가요?</div>
@@ -48,14 +59,18 @@
 </template>
 
 <script setup>
-import vector from '@/assets/Vector.png';
-import divider from '@/assets/Divider.png';
+// 이미지 경로가 확실하지 않아 주석 처리했습니다. 필요시 주석 해제하세요.
+// import vector from '@/assets/Vector.png';
+// import divider from '@/assets/Divider.png';
+
 import { ref } from 'vue';
 import axios from 'axios';
 import router from '@/router';
+import { useAuthStore } from '@/stores/auth'; // ★ Pinia 스토어 import
 
 const userId = ref('');
 const userPassword = ref('');
+const authStore = useAuthStore(); // ★ 스토어 인스턴스 생성
 
 async function login() {
   if (!userId.value || !userPassword.value) {
@@ -70,9 +85,10 @@ async function login() {
         password: userPassword.value,
       }
     );
-    console.log('로그인 성공:', response.data);
+    authStore.login(response.data.data.accessToken);
+    console.log('토큰 저장 완료:', response.data.data.accessToken);
 
-    sessionStorage.setItem('accessToken', response.data.accessToken);
+    router.push('/customers');
   } catch (error) {
     console.error('로그인 실패:', error);
     alert('로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.');
@@ -90,8 +106,8 @@ async function goToRegister() {
   background-color: #ffffff;
   display: flex;
   justify-content: center;
-  min-height: 1000px;
-  min-width: 1920px;
+  min-height: 100vh; /* 1000px 대신 뷰포트 높이 사용 권장 */
+  min-width: 100%;
   width: 100%;
 }
 
@@ -100,9 +116,7 @@ async function goToRegister() {
   display: flex;
   flex-direction: column;
   gap: 50px;
-  height: 424px;
   justify-content: center;
-  margin-top: -108px;
   position: relative;
   width: 800px;
 }
@@ -114,231 +128,150 @@ async function goToRegister() {
   gap: 10px;
   justify-content: center;
   position: relative;
-}
-
-.sign-in .vector {
-  aspect-ratio: 1;
-  height: 19.5px;
-  margin-left: -0.75px;
-  position: relative;
-  width: 19.5px;
+  margin-bottom: 20px;
 }
 
 .sign-in .text-wrapper {
   color: #000000;
-  font-family: 'Inter-Medium', Helvetica;
-  font-size: 20px;
-  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
   letter-spacing: 0.2px;
-  line-height: normal;
-  margin-top: -1px;
-  position: relative;
-  white-space: nowrap;
-  width: fit-content;
 }
 
 .sign-in .cards {
   align-items: center;
-  align-self: stretch;
-  background-color: var(--white);
-  border: 1px solid;
-  border-color: var(--border);
+  background-color: #ffffff;
+  border: 1px solid #e6edff; /* 테두리 색상 명시 */
   border-radius: 12px;
   display: flex;
   gap: 40px;
-  height: 350px;
-  padding: 42px 40px 42px 39px;
-  position: relative;
-  width: 100%;
+  height: auto;
+  padding: 50px 40px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); /* 그림자 추가 */
 }
 
 .sign-in .card {
   align-items: flex-start;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  position: relative;
-  width: 350px;
+  gap: 20px;
+  width: 320px;
 }
 
 .sign-in .top {
-  align-items: flex-start;
-  display: inline-flex;
-  flex: 0 0 auto;
-  gap: 61px;
-  position: relative;
-}
-
-.sign-in .text {
-  height: 60px;
-  position: relative;
-  width: 96px;
+  margin-bottom: 10px;
 }
 
 .sign-in .div {
-  color: #535353;
-  font-family: 'Pretendard Variable-SemiBold', Helvetica;
+  color: #333;
   font-size: 28px;
-  font-weight: 600;
-  left: 0;
-  letter-spacing: 0;
-  line-height: 42px;
-  position: absolute;
-  top: 0;
-  white-space: nowrap;
+  font-weight: 700;
 }
 
 .sign-in .div-wrapper {
-  height: 36px;
-  margin-left: -1px;
-  margin-right: -1px;
-  position: relative;
-  width: 352px;
-}
-
-.sign-in .text-wrapper-2 {
-  color: #ababab;
-  font-family: 'Pretendard Variable-Regular', Helvetica;
-  font-size: 16px;
-  font-weight: 400;
-  left: 12px;
-  letter-spacing: 0;
-  line-height: 24px;
-  position: absolute;
-  top: calc(50% - 12px);
-  white-space: nowrap;
-}
-
-.sign-in .text-wrapper-3 {
-  color: #ababab;
-  font-family: 'Pretendard Variable-Regular', Helvetica;
-  font-size: 16px;
-  font-weight: 400;
-  left: 12px;
-  letter-spacing: 0;
-  line-height: 24px;
-  position: absolute;
-  top: calc(50% - 12px);
-  white-space: nowrap;
-  width: 152px;
-}
-
-.sign-in .frame-wrapper {
-  align-self: stretch;
-  height: 81px;
-  position: relative;
   width: 100%;
 }
 
-.sign-in .frame-2 {
-  background: linear-gradient(
-      0deg,
-      rgba(0, 136, 255, 1) 0%,
-      rgba(0, 136, 255, 1) 100%
-    ),
-    linear-gradient(
-      0deg,
-      rgba(255, 255, 255, 1) 0%,
-      rgba(255, 255, 255, 1) 100%
-    );
-  border-radius: 16px;
-  height: 35px;
-  overflow: hidden;
-  position: absolute;
-  right: 0;
-  top: 46px;
-  width: 80px;
-}
-
-.sign-in .text-wrapper-4 {
-  color: #ffffff;
-  font-family: 'Pretendard Variable-SemiBold', Helvetica;
-  font-size: 16px;
-  font-weight: 600;
-  left: calc(50% - 21px);
-  letter-spacing: 0;
-  line-height: 24px;
-  position: absolute;
-  top: calc(50% - 12px);
-  white-space: nowrap;
-}
-
-.sign-in .divider {
-  height: 200px;
-  object-fit: cover;
-  position: relative;
-  width: 1px;
-}
-
-.sign-in .card-2 {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  height: 82px;
-  position: relative;
-  width: 282px;
-}
-
-.sign-in .frame-3 {
-  align-items: center;
-  display: inline-flex;
-  flex: 0 0 auto;
-  flex-direction: column;
-  gap: 26px;
-  margin-bottom: -9px;
-  position: relative;
-}
-
-.sign-in .text-wrapper-5 {
-  color: var(--colors-labels-vibrant-controls-secondary);
-  font-family: 'Pretendard Variable-Medium', Helvetica;
-  font-size: 20px;
-  font-weight: 500;
-  letter-spacing: 0;
-  line-height: 30px;
-  margin-top: -1px;
-  position: relative;
-  white-space: nowrap;
-  width: fit-content;
-}
-
-.sign-in .frame-4 {
-  background-color: var(--colors-labels-vibrant-controls-secondary);
-  border: 1px solid;
-  border-color: #e6edff;
-  border-radius: 16px;
-  height: 35px;
-  overflow: hidden;
-  position: relative;
-  width: 96px;
-}
-
-.sign-in .text-wrapper-6 {
-  color: var(--colors-labels-vibrant-controls-secondary);
-  font-family: 'Pretendard Variable-SemiBold', Helvetica;
-  font-size: 16px;
-  font-weight: 600;
-  left: calc(50% - 28px);
-  letter-spacing: 0;
-  line-height: 24px;
-  position: absolute;
-  top: calc(50% - 12px);
-  white-space: nowrap;
+.sign-in .field {
+  width: 100%;
 }
 
 input {
   width: 100%;
   border: none;
   border-bottom: 1px solid #e0e0e0;
-  padding: 8px 0;
+  padding: 12px 5px;
   outline: none;
-  font-family: 'Pretendard Variable-Regular', Helvetica;
   font-size: 16px;
-  font-weight: 400;
-  padding-left: 12px;
-  color: black;
+  color: #333;
+  transition: border-color 0.2s;
 }
+
+input:focus {
+  border-bottom-color: #0088ff;
+}
+
 input::placeholder {
   color: #ababab;
+}
+
+.sign-in .frame-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end; /* 오른쪽 정렬 */
+  margin-top: 10px;
+}
+
+.sign-in .frame-2 {
+  background: linear-gradient(90deg, #0088ff 0%, #0055ff 100%);
+  border-radius: 8px;
+  width: 100px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.sign-in .frame-2:hover {
+  opacity: 0.9;
+}
+
+.sign-in .text-wrapper-4 {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* 이미지 대신 CSS로 세로선 구현 */
+.divider-line {
+  width: 1px;
+  height: 250px;
+  background-color: #e0e0e0;
+}
+
+.sign-in .card-2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 250px;
+}
+
+.sign-in .frame-3 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.sign-in .text-wrapper-5 {
+  color: #666;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.sign-in .frame-4 {
+  border: 1px solid #0088ff;
+  border-radius: 8px;
+  width: 120px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.sign-in .frame-4:hover {
+  background-color: #f0f8ff;
+}
+
+.sign-in .text-wrapper-6 {
+  color: #0088ff;
+  font-size: 16px;
+  font-weight: 600;
 }
 </style>

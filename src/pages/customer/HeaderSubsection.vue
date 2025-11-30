@@ -1,72 +1,76 @@
 <template>
   <header class="header-subsection">
-    <div class="title">
-      <div class="text-wrapper">Customer</div>
-      <div class="div">고객의 상세정보를 확인하세요.</div>
+    <div class="title-group">
+      <div class="page-title">Customer</div>
+      <div class="page-desc">고객의 상세정보를 확인하세요.</div>
     </div>
-    <div class="group">
-      <div class="frame">
-        <div class="ellipse" />
-        <div class="name">
-          <div class="admin">Admin</div>
-          <img class="down-arrow" alt="Down arrow" :src="downArrow" />
-        </div>
+
+    <div class="user-profile">
+      <div class="avatar-circle"></div>
+      <div class="user-info">
+        <span class="admin-name">Admin</span>
+        <svg
+          width="12"
+          height="12"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M6 9l6 6 6-6" />
+        </svg>
       </div>
     </div>
   </header>
 </template>
 
 <script>
-import downArrow from './down-arrow.svg';
-
 export default {
   name: 'HeaderSubsection',
-  data() {
-    return {
-      downArrow,
-    };
-  },
 };
 </script>
 
-<style>
+<style scoped>
 .header-subsection {
-  /* Add your styles here */
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 30px;
+  width: 100%;
 }
 
-.title {
-  /* Add your styles here */
+.page-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 8px;
 }
 
-.text-wrapper {
-  /* Add your styles here */
+.page-desc {
+  font-size: 14px;
+  color: #999;
 }
 
-.div {
-  /* Add your styles here */
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
 }
 
-.group {
-  /* Add your styles here */
+.avatar-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
 }
 
-.frame {
-  /* Add your styles here */
-}
-
-.ellipse {
-  /* Add your styles here */
-}
-
-.name {
-  /* Add your styles here */
-}
-
-.admin {
-  /* Add your styles here */
-}
-
-.down-arrow {
-  /* Add your styles here */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  font-size: 14px;
+  color: #333;
 }
 </style>
