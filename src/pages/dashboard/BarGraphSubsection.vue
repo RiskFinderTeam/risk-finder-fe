@@ -1,203 +1,147 @@
 <template>
   <div class="bar-graph-subsection">
-    <div class="frame-7">
-      <div class="frame-8">
-        <div class="text-wrapper-17">전체 고객 부도확률</div>
-        <div class="text-wrapper-18">최근 6개월 기준</div>
-      </div>
-      <div class="chart-3">
-        <div class="frame-9">
-          <div class="frame-10">
-            <div class="element">30%</div>
-            <img class="line" alt="Line" :src="line7" />
-          </div>
-          <div class="frame-10">
-            <div class="element">20%</div>
-            <img class="line" alt="Line" :src="line4" />
-          </div>
-          <div class="frame-10">
-            <div class="element">10%</div>
-            <img class="line" alt="Line" :src="line5" />
-          </div>
-          <div class="frame-11">
-            <div class="element">0%</div>
-            <img class="line-2" alt="Line" :src="line6" />
-          </div>
-        </div>
-        <div class="group-2">
-          <div class="element-2">05</div>
-          <img class="rectangle" alt="Rectangle" :src="rectangle6" />
-        </div>
-        <div class="group-3">
-          <div class="element-3">06</div>
-          <img class="rectangle-2" alt="Rectangle" :src="rectangle62" />
-        </div>
-        <div class="group-4">
-          <div class="element-4">07</div>
-          <img class="rectangle-3" alt="Rectangle" :src="rectangle63" />
-        </div>
-        <div class="group-5">
-          <div class="element-5">08</div>
-          <img class="rectangle-4" alt="Rectangle" :src="rectangle64" />
-        </div>
-        <div class="group-6">
-          <div class="element-6">09</div>
-          <img class="rectangle-5" alt="Rectangle" :src="rectangle65" />
-        </div>
-        <div class="group-7">
-          <div class="element-7">10</div>
-          <img class="rectangle-6" alt="Rectangle" :src="rectangle66" />
-        </div>
-      </div>
+    <div class="header">
+      <div class="title">전체 고객 부도확률</div>
+      <div class="subtitle">최근 6개월 기준</div>
+    </div>
+
+    <div class="chart-container">
+      <Bar :data="chartData" :options="chartOptions" />
     </div>
   </div>
 </template>
 
 <script>
-import line4 from "./line-4.svg";
-import line5 from "./line-5.svg";
-import line6 from "./line-6.svg";
-import line7 from "./line-7.svg";
-import rectangle62 from "./rectangle-6-2.svg";
-import rectangle63 from "./rectangle-6-3.svg";
-import rectangle64 from "./rectangle-6-4.svg";
-import rectangle65 from "./rectangle-6-5.svg";
-import rectangle66 from "./rectangle-6-6.svg";
-import rectangle6 from "./rectangle-6.svg";
+import {
+  Chart as ChartJS,
+  Title,
+  Tooltip,
+  Legend,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+} from 'chart.js';
+import { Bar } from 'vue-chartjs';
+
+// Chart.js 컴포넌트 등록
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 export default {
-  name: "BarGraphSubsection",
+  name: 'BarGraphSubsection',
+  components: {
+    Bar,
+  },
   data() {
     return {
-      line4,
-      line5,
-      line6,
-      line7,
-      rectangle62,
-      rectangle63,
-      rectangle64,
-      rectangle65,
-      rectangle66,
-      rectangle6,
+      // 차트 데이터 (이미지와 거의 동일한 값으로 설정)
+      chartData: {
+        labels: ['05', '06', '07', '08', '09', '10'], // X축 (월)
+        datasets: [
+          {
+            label: '부도확률',
+            backgroundColor: '#0088FF', // 이미지의 파란색 (Vivid Blue)
+            hoverBackgroundColor: '#0077E6', // 호버 시 약간 진하게
+            data: [23, 18, 20, 15, 26, 28], // 이미지 높이에 맞춘 데이터
+            borderRadius: 4, // 막대 상단 둥글게
+            barThickness: 16, // 막대 두께 (이미지에 맞춰 조정)
+          },
+        ],
+      },
+      // 차트 옵션 (스타일 디테일 설정)
+      chartOptions: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false, // 범례(네모 박스) 숨김
+          },
+          tooltip: {
+            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+            padding: 10,
+            callbacks: {
+              label: (context) => context.raw + '%', // 툴팁에 % 붙이기
+            },
+          },
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 30, // Y축 최대값 30%로 고정
+            ticks: {
+              stepSize: 10, // 0, 10, 20, 30 단위
+              callback: (value) => value + '%', // 눈금에 % 표시
+              color: '#BDBDBD', // 연한 회색 글씨
+              font: { size: 11, family: "'Inter', sans-serif" },
+              padding: 10,
+            },
+            grid: {
+              color: '#F0F0F0', // 아주 연한 회색 그리드
+              borderDash: [4, 4], // 점선 스타일 (실선 아님)
+              drawBorder: false, // Y축 세로선 제거
+              tickLength: 0, // 눈금 돌기 제거
+            },
+            border: { display: false },
+          },
+          x: {
+            grid: {
+              display: false, // X축 세로 그리드 제거
+            },
+            ticks: {
+              color: '#BDBDBD',
+              font: { size: 12, family: "'Inter', sans-serif" },
+            },
+            border: { display: false }, // X축 가로선 제거 (깔끔하게)
+          },
+        },
+        layout: {
+          padding: {
+            top: 10,
+            bottom: 5,
+          },
+        },
+      },
     };
   },
 };
 </script>
 
-<style>
+<style scoped>
 .bar-graph-subsection {
-  /* Add your styles here */
+  /* ▼▼▼ [수정] 고정 너비 제거하고 100%로 설정 ▼▼▼ */
+  width: 100%;
+  height: 300px;
+  background: white;
+  border: 1px solid #e6edff;
+  border-radius: 12px;
+  padding: 24px;
+  box-sizing: border-box;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+
+  /* position: absolute;  <-- 이거 절대 있으면 안 됩니다! 지우세요 */
 }
 
-.frame-7 {
-  /* Add your styles here */
+.header {
+  margin-bottom: 15px;
 }
-
-.frame-8 {
-  /* Add your styles here */
+.title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #333;
 }
-
-.text-wrapper-17 {
-  /* Add your styles here */
+.subtitle {
+  font-size: 12px;
+  color: #999;
+  margin-top: 4px;
 }
-
-.text-wrapper-18 {
-  /* Add your styles here */
-}
-
-.chart-3 {
-  /* Add your styles here */
-}
-
-.frame-9 {
-  /* Add your styles here */
-}
-
-.frame-10 {
-  /* Add your styles here */
-}
-
-.element {
-  /* Add your styles here */
-}
-
-.line {
-  /* Add your styles here */
-}
-
-.frame-11 {
-  /* Add your styles here */
-}
-
-.element-2 {
-  /* Add your styles here */
-}
-
-.rectangle {
-  /* Add your styles here */
-}
-
-.group-2 {
-  /* Add your styles here */
-}
-
-.group-3 {
-  /* Add your styles here */
-}
-
-.element-3 {
-  /* Add your styles here */
-}
-
-.rectangle-2 {
-  /* Add your styles here */
-}
-
-.group-4 {
-  /* Add your styles here */
-}
-
-.element-4 {
-  /* Add your styles here */
-}
-
-.rectangle-3 {
-  /* Add your styles here */
-}
-
-.group-5 {
-  /* Add your styles here */
-}
-
-.element-5 {
-  /* Add your styles here */
-}
-
-.rectangle-4 {
-  /* Add your styles here */
-}
-
-.group-6 {
-  /* Add your styles here */
-}
-
-.element-6 {
-  /* Add your styles here */
-}
-
-.rectangle-5 {
-  /* Add your styles here */
-}
-
-.group-7 {
-  /* Add your styles here */
-}
-
-.element-7 {
-  /* Add your styles here */
-}
-
-.rectangle-6 {
-  /* Add your styles here */
+.chart-container {
+  height: 200px;
+  width: 100%;
 }
 </style>

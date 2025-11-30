@@ -13,7 +13,11 @@
     </div>
 
     <nav class="nav-menu">
-      <div class="nav-item">
+      <div
+        class="nav-item"
+        :class="{ active: $route.path === '/dashboard' }"
+        @click="movePage('/dashboard')"
+      >
         <div class="icon-box">
           <svg
             width="20"
@@ -33,7 +37,11 @@
         <span class="menu-text">Dashboard</span>
       </div>
 
-      <div class="nav-item active">
+      <div
+        class="nav-item"
+        :class="{ active: $route.path === '/customers' }"
+        @click="movePage('/customers')"
+      >
         <div class="icon-box">
           <svg
             width="20"
@@ -91,47 +99,50 @@
 <script>
 export default {
   name: 'FrameSubsection',
+  methods: {
+    movePage(path) {
+      if (this.$route.path !== path) {
+        this.$router.push(path);
+      }
+    },
+  },
 };
 </script>
 
 <style scoped>
-/* 전체 프레임 스타일 */
 .frame-subsection {
-  width: 260px; /* 너비 고정 */
-  min-height: 100vh; /* ★ 핵심 수정: 화면 전체 높이로 강제 설정 */
+  width: 260px;
+  min-height: 100vh;
   background-color: #ffffff;
-  border-right: 1px solid #e5e7eb;
   display: flex;
   flex-direction: column;
   padding: 40px 30px;
   box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  z-index: 20;
 }
 
-/* 로고 영역 */
 .logo-area {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 60px; /* 로고와 메뉴 사이 간격 */
+  margin-bottom: 60px;
 }
 
 .logo-text {
   font-size: 18px;
   font-weight: 700;
   color: #111827;
-  letter-spacing: -0.02em;
 }
 
-/* 메뉴 공통 스타일 */
 .nav-menu {
   display: flex;
   flex-direction: column;
-  gap: 30px; /* ★ 메뉴끼리 너무 붙지 않게 간격 넓힘 */
+  gap: 30px;
 }
 
 .bottom-menu {
-  margin-top: auto; /* Contact 메뉴를 화면 맨 아래로 밀어줌 */
+  margin-top: auto;
 }
 
 .nav-item {
@@ -141,7 +152,7 @@ export default {
   cursor: pointer;
   color: #9ca3af;
   transition: all 0.2s ease;
-  padding: 5px 0; /* 터치 영역 확보 */
+  padding: 5px 0;
 }
 
 .menu-text {
@@ -149,15 +160,13 @@ export default {
   font-weight: 500;
 }
 
-/* 아이콘 박스 */
 .icon-box {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px; /* 아이콘 영역 고정 */
+  width: 24px;
 }
 
-/* 활성화 상태 (Active) 스타일 */
 .nav-item.active {
   color: #3b82f6;
 }
