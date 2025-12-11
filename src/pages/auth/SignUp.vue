@@ -1,80 +1,77 @@
 <template>
-  <div class="sign-up">
-    <div class="frame">
-      <div class="logo">
-        <img class="vector" alt="Vector" :src="vector" />
-        <div class="text-wrapper">Risk Finder</div>
+  <div class="sign-up-container">
+    <div class="content-wrapper">
+      <div class="logo-section">
+        <img class="logo-icon" alt="Logo" :src="vector" />
+        <h1 class="logo-text">Risk Finder</h1>
       </div>
-      <div class="cards">
-        <div class="card">
-          <div class="top">
-            <div class="text">
-              <div class="div">Sign Up</div>
-            </div>
+
+      <div class="main-card">
+        <div class="form-section">
+          <h2 class="form-title">Sign Up</h2>
+
+          <div class="input-group">
+            <input type="text" placeholder="아이디" v-model="userId" />
           </div>
-          <div class="div-wrapper">
-            <div class="field">
-              <input type="text" placeholder="아이디" v-model="userId" />
-            </div>
+
+          <div class="input-group">
+            <input
+              type="password"
+              placeholder="비밀번호 입력"
+              v-model="password"
+            />
           </div>
-          <div class="div-wrapper">
-            <div class="field">
+
+          <div class="input-group">
+            <input
+              type="password"
+              placeholder="비밀번호 재입력"
+              v-model="checkPassword"
+            />
+          </div>
+
+          <div class="input-group row-group">
+            <div class="input-wrapper">
+              <input type="text" placeholder="이메일 입력" v-model="email" />
+            </div>
+            <button class="btn-base btn-outline btn-small" @click="sendEmail">
+              인증번호 전송
+            </button>
+          </div>
+
+          <div class="input-group row-group">
+            <div class="input-wrapper">
               <input
-                type="password"
-                placeholder="비밀번호 입력"
-                v-model="password"
+                type="text"
+                placeholder="인증번호 입력"
+                v-model="verifyCode"
               />
             </div>
+            <button
+              class="btn-base btn-primary btn-small"
+              @click="checkVerfiyCode"
+            >
+              인증 완료
+            </button>
           </div>
-          <div class="div-wrapper">
-            <div class="field">
-              <input
-                type="password"
-                placeholder="비밀번호 재입력"
-                v-model="checkPassword"
-              />
-            </div>
-          </div>
-          <div class="frame-2">
-            <div class="frame-3">
-              <div class="field">
-                <input type="text" placeholder="이메일 입력" v-model="email" />
-              </div>
-            </div>
-            <div class="frame-4">
-              <div class="text-wrapper-4" @click="sendEmail">인증번호 전송</div>
-            </div>
-          </div>
-          <div class="frame-2">
-            <div class="frame-3">
-              <div class="field">
-                <input
-                  type="text"
-                  placeholder="인증번호 입력"
-                  v-model="verifyCode"
-                />
-              </div>
-            </div>
-            <div class="frame-5">
-              <div class="text-wrapper-5" @click="checkVerfiyCode">
-                인증 완료
-              </div>
-            </div>
-          </div>
-          <div class="frame-6">
-            <div class="frame-7">
-              <div class="text-wrapper-6" @click="signUp">가입하기</div>
-            </div>
+
+          <div class="submit-area">
+            <button class="btn-base btn-gradient btn-large" @click="signUp">
+              가입하기
+            </button>
           </div>
         </div>
-        <img class="divider" alt="Divider" :src="divider" />
-        <div class="frame-wrapper">
-          <div class="frame-8">
-            <div class="text-wrapper-7">회원이신가요?</div>
-            <div class="frame-9">
-              <div class="text-wrapper-8" @click="goToLogin">로그인</div>
-            </div>
-          </div>
+
+        <div class="divider-section">
+          <img class="divider-img" alt="Divider" :src="divider" />
+          <div class="mobile-divider"></div>
+        </div>
+
+        <div class="login-section">
+          <span class="login-label">회원이신가요?</span>
+          <button class="btn-base btn-outline btn-login" @click="goToLogin">
+            로그인
+          </button>
         </div>
       </div>
     </div>
@@ -97,7 +94,6 @@ const isEmailVerified = ref(false);
 
 // 회원가입 코드
 async function signUp() {
-  // 모든 필드가 채워졌는지 확인
   if (
     !email.value ||
     !userId.value ||
@@ -107,20 +103,14 @@ async function signUp() {
     alert('모든 항목을 입력해주세요.');
     return;
   }
-
-  // 이메일이 중복되는지 확인
   if (await checkEmailDuplicate()) {
     alert('이미 존재하는 이메일입니다.');
     return;
   }
-
-  // 비밀번호와 비밀번호 확인 일치 여부 확인
   if (password.value !== checkPassword.value) {
     alert('비밀번호가 일치하지 않습니다.');
     return;
   }
-
-  // 이메일 인증 여부 확인
   if (!isEmailVerified.value) {
     alert('이메일 인증을 완료해주세요.');
     return;
@@ -133,7 +123,6 @@ async function signUp() {
         password: password.value,
       }
     );
-
     if (response.status === 200 || response.status === 201) {
       alert('회원가입이 완료되었습니다.');
       router.push('/auth/login');
@@ -141,7 +130,6 @@ async function signUp() {
   } catch (error) {
     alert('회원가입에 실패했습니다. 다시 시도해주세요.');
     console.error(error);
-    return;
   }
 }
 
@@ -150,14 +138,9 @@ async function checkEmailDuplicate() {
   try {
     const response = await axios.get(
       'http://localhost:8080/api/v1/auth/check-email',
-      {
-        params: {
-          email: userId.value,
-        },
-      }
+      { params: { email: userId.value } }
     );
-    const isDuplicate = response.data.data;
-    return isDuplicate;
+    return response.data.data;
   } catch (error) {
     console.error(error);
     alert('중복 확인 중 오류가 발생했습니다.');
@@ -177,16 +160,14 @@ async function sendEmail() {
     alert('유효한 이메일 주소를 입력해주세요.');
     return;
   }
-
   try {
-    const response = await axios.post(
+    await axios.post(
       `http://localhost:8080/api/v1/auth/send-mail/${email.value}`
     );
     alert('인증번호가 전송되었습니다. 이메일을 확인해주세요.');
   } catch (error) {
     console.error(error);
     alert('인증번호 전송에 실패했습니다. 다시 시도해주세요.');
-    return;
   }
 }
 
@@ -196,19 +177,12 @@ async function checkVerfiyCode() {
     alert('인증번호를 입력해주세요.');
     return;
   }
-
   try {
     const response = await axios.post(
       `http://localhost:8080/api/v1/auth/verify-code`,
-      {
-        email: email.value,
-        authCode: verifyCode.value,
-      }
+      { email: email.value, authCode: verifyCode.value }
     );
-
-    const isVerified = response.data.data;
-
-    if (isVerified) {
+    if (response.data.data) {
       alert('이메일 인증이 완료되었습니다.');
       isEmailVerified.value = true;
     } else {
@@ -221,356 +195,276 @@ async function checkVerfiyCode() {
   }
 }
 
-// 로그인 페이지로 이동
 async function goToLogin() {
   router.push('/auth/login');
 }
 </script>
 
 <style scoped>
-.sign-up {
-  align-items: center;
-  background-color: #ffffff;
-  display: flex;
-  justify-content: center;
-  min-height: 1000px;
-  min-width: 1920px;
-  width: 100%;
+:root {
+  --primary-color: #0088ff;
+  --text-dark: #535353;
+  --text-gray: #ababab;
+  --border-color: #e6edff;
 }
 
-.sign-up .frame {
+.sign-up-container {
+  display: flex;
+  justify-content: center;
   align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  background-color: #ffffff;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.content-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 50px;
-  height: 563px;
-  margin-top: -66px;
-  position: relative;
-  width: 800px;
-}
-
-.sign-up .logo {
   align-items: center;
-  display: inline-flex;
-  flex: 0 0 auto;
-  gap: 10px;
-  justify-content: center;
-  position: relative;
+  gap: 20px;
+  width: 100%;
+  max-width: 720px;
 }
 
-.sign-up .vector {
-  aspect-ratio: 1;
-  height: 19.5px;
-  margin-left: -0.75px;
-  position: relative;
-  width: 19.5px;
+/* --- Logo Section --- */
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.sign-up .text-wrapper {
-  color: var(--primary);
-  font-family: 'Inter-Medium', Helvetica;
-  font-size: 20px;
+.logo-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.logo-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
   font-weight: 500;
-  letter-spacing: 0.2px;
-  line-height: normal;
-  margin-top: -1px;
-  position: relative;
-  white-space: nowrap;
-  width: fit-content;
+  color: #0088ff;
+  margin: 0;
 }
 
-.sign-up .cards {
-  align-items: center;
-  align-self: stretch;
-  background-color: var(--white);
-  border: 1px solid;
-  border-color: var(--border);
+/* --- Main Card --- */
+.main-card {
+  display: flex;
+  background-color: #ffffff;
+  border: 1px solid #e6edff;
   border-radius: 12px;
-  display: flex;
-  gap: 40px;
-  height: 489px;
-  padding: 42px 40px 42px 39px;
-  position: relative;
+  padding: 30px;
   width: 100%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+
+  /* [수정 1] space-between 제거 -> 요소들이 자연스럽게 붙도록 함 */
+  /* justify-content: space-between; (삭제) */
+  align-items: stretch; /* 높이 맞춤 */
 }
 
-.sign-up .card {
-  align-items: flex-start;
+/* --- Form Section (Left) --- */
+.form-section {
+  /* [수정 2] 폼 영역의 flex 동작 명시 */
+  flex: 0 0 auto; /* 늘어나지 않고 내용물 크기만큼만 (max-width 따름) */
+  width: 320px; /* 너비 고정 */
+
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  position: relative;
-  width: 350px;
+  gap: 16px;
 }
 
-.sign-up .top {
-  align-items: flex-start;
-  display: inline-flex;
-  flex: 0 0 auto;
-  gap: 61px;
-  position: relative;
-}
-
-.sign-up .text {
-  height: 60px;
-  position: relative;
-  width: 96px;
-}
-
-.sign-up .div {
+.form-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 24px;
+  font-weight: 600;
   color: #535353;
-  font-family: 'Inter-SemiBold', Helvetica;
-  font-size: 28px;
-  font-weight: 600;
-  left: 0;
-  letter-spacing: 0;
-  line-height: 42px;
-  position: absolute;
-  top: 0;
-  white-space: nowrap;
+  margin: 0 0 5px 0;
 }
 
-.sign-up .div-wrapper {
-  height: 36px;
-  margin-left: -1px;
-  margin-right: -1px;
-  position: relative;
-  width: 352px;
-}
-
-.sign-up .text-wrapper-2 {
-  color: #ababab;
-  font-family: 'Pretendard Variable-Regular', Helvetica;
-  font-size: 16px;
-  font-weight: 400;
-  left: 12px;
-  letter-spacing: 0;
-  line-height: 24px;
-  position: absolute;
-  top: calc(50% - 12px);
-  white-space: nowrap;
-  width: 89px;
-}
-
-.sign-up .text-wrapper-3 {
-  color: #ababab;
-  font-family: 'Pretendard Variable-Regular', Helvetica;
-  font-size: 16px;
-  font-weight: 400;
-  left: 12px;
-  letter-spacing: 0;
-  line-height: 24px;
-  position: absolute;
-  top: calc(50% - 12px);
-  white-space: nowrap;
-  width: 152px;
-}
-
-.sign-up .frame-2 {
-  align-items: center;
-  display: inline-flex;
-  flex: 0 0 auto;
-  gap: 14px;
-  margin-right: -2px;
-  position: relative;
-}
-
-.sign-up .frame-3 {
-  height: 36px;
-  position: relative;
-  width: 256px;
-}
-
-.sign-up .frame-4 {
-  background-color: #ffffff;
-  border: 1px solid;
-  border-color: #e6edff;
-  border-radius: 14px;
-  height: 29px;
-  overflow: hidden;
-  position: relative;
-  width: 84px;
-}
-
-.sign-up .text-wrapper-4 {
-  align-items: center;
-  color: #ababab;
-  display: flex;
-  font-family: 'Pretendard Variable-Medium', Helvetica;
-  font-size: 11px;
-  font-weight: 500;
-  height: 17px;
-  justify-content: center;
-  left: calc(50% - 30px);
-  letter-spacing: 0;
-  line-height: 16.5px;
-  position: absolute;
-  text-align: center;
-  top: calc(50% - 8px);
-  white-space: nowrap;
-}
-
-.sign-up .frame-5 {
-  background-color: #0088ff;
-  border-radius: 14px;
-  height: 29px;
-  overflow: hidden;
-  position: relative;
-  width: 84px;
-}
-
-.sign-up .text-wrapper-5 {
-  align-items: center;
-  color: #ffffff;
-  display: flex;
-  font-family: 'Pretendard Variable-Medium', Helvetica;
-  font-size: 11px;
-  font-weight: 500;
-  height: 17px;
-  justify-content: center;
-  left: calc(50% - 20px);
-  letter-spacing: 0;
-  line-height: 16.5px;
-  position: absolute;
-  text-align: center;
-  top: calc(50% - 8px);
-  white-space: nowrap;
-}
-
-.sign-up .frame-6 {
-  align-items: flex-end;
-  align-self: stretch;
-  display: flex;
-  gap: 151px;
-  height: 81px;
-  justify-content: space-around;
-  position: relative;
+/* Input Styles */
+.input-group {
   width: 100%;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 2px;
 }
 
-.sign-up .frame-7 {
-  background: linear-gradient(
-      0deg,
-      rgba(0, 136, 255, 1) 0%,
-      rgba(0, 136, 255, 1) 100%
-    ),
-    linear-gradient(
-      0deg,
-      rgba(255, 255, 255, 1) 0%,
-      rgba(255, 255, 255, 1) 100%
-    );
-  border-radius: 16px;
-  height: 36px;
-  overflow: hidden;
-  position: absolute;
-  right: -9px;
-  top: 44px;
-  width: 96px;
-}
-
-.sign-up .text-wrapper-6 {
-  align-items: center;
-  color: #ffffff;
+.input-group.row-group {
   display: flex;
-  font-family: 'Pretendard Variable-SemiBold', Helvetica;
-  font-size: 16px;
-  font-weight: 600;
-  height: 24px;
-  justify-content: center;
-  left: calc(50% - 28px);
-  letter-spacing: 0;
-  line-height: 24px;
-  position: absolute;
-  text-align: center;
-  top: calc(50% - 12px);
-  white-space: nowrap;
-}
-
-.sign-up .divider {
-  height: 280px;
-  object-fit: cover;
-  position: relative;
-  width: 1px;
-}
-
-.sign-up .frame-wrapper {
   align-items: center;
-  display: flex;
-  flex-direction: column;
-  height: 82px;
-  position: relative;
-  width: 282px;
+  gap: 8px;
+  border-bottom: none;
 }
 
-.sign-up .frame-8 {
-  align-items: center;
-  display: inline-flex;
-  flex: 0 0 auto;
-  flex-direction: column;
-  gap: 26px;
-  margin-bottom: -5px;
-  position: relative;
-}
-
-.sign-up .text-wrapper-7 {
-  color: var(--colors-labels-vibrant-controls-secondary);
-  font-family: 'Pretendard Variable-Regular', Helvetica;
-  font-size: 20px;
-  font-weight: 500;
-  height: 26px;
-  letter-spacing: 0;
-  line-height: 30px;
-  margin-top: -1px;
-  position: relative;
-  text-align: center;
-  white-space: nowrap;
-  width: 240px;
-}
-
-.sign-up .frame-9 {
-  align-items: flex-start;
-  background-color: var(--colors-labels-vibrant-controls-secondary);
-  border: 1px solid;
-  border-color: #e6edff;
-  border-radius: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  height: 35px;
-  overflow: hidden;
-  padding: 3px 14px;
-  position: relative;
-  width: 80px;
-}
-
-.sign-up .text-wrapper-8 {
-  align-items: center;
-  align-self: stretch;
-  color: var(--colors-labels-vibrant-controls-secondary);
-  display: flex;
-  font-family: 'Inter-Medium', Helvetica;
-  font-size: 16px;
-  font-weight: 500;
-  justify-content: center;
-  letter-spacing: 0;
-  height: 100%;
-  position: relative;
-  text-align: center;
+.input-wrapper {
+  flex: 1;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 input {
   width: 100%;
   border: none;
-  border-bottom: 1px solid #e0e0e0;
-  padding: 8px 0;
   outline: none;
-  font-family: 'Pretendard Variable-Regular', Helvetica;
-  font-size: 16px;
-  font-weight: 400;
-  padding-left: 12px;
-  color: black;
+  font-family: 'Pretendard Variable', sans-serif;
+  font-size: 15px;
+  padding: 6px 4px;
+  color: #000;
+  background: transparent;
 }
+
 input::placeholder {
   color: #ababab;
+}
+
+/* --- Divider Section (Center) --- */
+.divider-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* [수정 3] 구분선 좌우 여백을 늘려서 자연스럽게 벌림 */
+  padding: 0 50px;
+  flex-shrink: 0; /* 줄어들지 않음 */
+}
+
+.divider-img {
+  height: 100%;
+  max-height: 300px;
+  width: 1px;
+  object-fit: cover;
+}
+
+.mobile-divider {
+  display: none;
+  width: 100%;
+  height: 1px;
+  background-color: #e6edff;
+  margin: 24px 0;
+}
+
+/* --- Login Section (Right) --- */
+.login-section {
+  /* [수정 4] 남은 공간을 모두 차지하도록 설정 */
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  /* [수정 5] 차지한 공간 안에서 내용물을 중앙 정렬 */
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.login-label {
+  font-family: 'Pretendard Variable', sans-serif;
+  font-size: 16px;
+  color: #535353;
+  font-weight: 500;
+}
+
+/* --- Button Component Styles --- */
+.btn-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  font-family: 'Pretendard Variable', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-small {
+  height: 30px;
+  padding: 0 10px;
+  min-width: 76px;
+  font-size: 11px;
+}
+
+.btn-large {
+  height: 40px;
+  width: 110px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 14px;
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 1px solid #e6edff;
+  color: #ababab;
+}
+.btn-outline:hover {
+  background-color: #f8f9fa;
+  color: #888;
+}
+
+.btn-primary {
+  background-color: #0088ff;
+  color: #ffffff;
+}
+.btn-primary:hover {
+  background-color: #0077e6;
+}
+
+.btn-gradient {
+  background: linear-gradient(0deg, #0088ff 0%, #0088ff 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 136, 255, 0.2);
+}
+.btn-gradient:hover {
+  filter: brightness(0.95);
+}
+
+.btn-login {
+  height: 36px;
+  padding: 0 16px;
+  font-size: 14px;
+  color: #535353;
+  border-radius: 12px;
+}
+
+.submit-area {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+/* --- Responsive Media Queries --- */
+@media (max-width: 768px) {
+  .main-card {
+    flex-direction: column;
+    padding: 24px 20px;
+    align-items: center;
+    max-width: 420px;
+  }
+
+  .form-section {
+    width: 100%;
+    max-width: 100%; /* 모바일에서는 꽉 차게 */
+    flex: auto;
+  }
+
+  .divider-img {
+    display: none;
+  }
+  .mobile-divider {
+    display: block;
+  }
+
+  .divider-section {
+    width: 100%;
+    padding: 0;
+  }
+
+  .login-section {
+    width: 100%;
+    flex: auto; /* 모바일에서는 flex grow 해제 */
+    flex-direction: row;
+    justify-content: center;
+  }
 }
 </style>
