@@ -69,6 +69,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'CustomerDetail',
   props: {
@@ -86,27 +88,17 @@ export default {
       }),
     },
   },
-  // ▼▼▼ [추가됨] 데이터를 가공하는 computed 속성 ▼▼▼
   computed: {
     parsedFeatures() {
       const data = this.user.top3Features;
-
-      // 1. 만약 데이터가 이미 배열이라면 그대로 반환
-      if (Array.isArray(data)) {
-        return data;
-      }
-
-      // 2. 만약 데이터가 문자열이라면 (예: "[요인1, 요인2]") -> 배열로 변환
+      if (Array.isArray(data)) return data;
       if (typeof data === 'string') {
-        // 대괄호 '[' 와 ']' 를 제거하고, 콤마(,) 기준으로 자릅니다.
         return data
           .replace('[', '')
           .replace(']', '')
           .split(',')
           .map((item) => item.trim());
       }
-
-      // 3. 데이터가 없으면 빈 배열 반환
       return [];
     },
   },
@@ -115,8 +107,40 @@ export default {
       if (score === undefined || score === null) return '-';
       return (score * 100).toFixed(2) + '%';
     },
-    sendEmail() {
-      alert('안내 메일 발송 기능은 준비 중입니다.');
+
+    async sendEmail() {
+      // 1. 이메일 유효성 체크
+      if (
+        !this.user.email ||
+        this.user.email === '-' ||
+        this.user.email.trim() === ''
+      ) {
+        alert('발송할 이메일 주소가 존재하지 않습니다.');
+        return;
+      }
+
+      // 2. 전송할 데이터 준비
+      const requestData = {
+        email: this.user.email,
+        customerId: this.user.skIdCurr,
+      };
+
+      try {
+        // 3. API 호출
+        const response = await axios.post(
+          '/api/v1/risk/send-mail',
+          requestData
+        );
+
+        // 4. 성공 처리
+        if (response.status === 200) {
+          alert('안내 메일이 성공적으로 발송되었습니다.');
+        }
+      } catch (error) {
+        // 5. 에러 처리
+        console.error('메일 발송 실패:', error);
+        alert('메일 발송 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+      }
     },
   },
 };
